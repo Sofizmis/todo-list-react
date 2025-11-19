@@ -11,7 +11,7 @@ function ToDoList() {
 
     function addTask() {
         if (newTask.trim() !== "") {
-            setTasks(t => [...t, newTask]);
+            setTasks(t => [...t, { text: newTask, completed: false }]);
             setNewTask("");
         }
     }
@@ -37,6 +37,12 @@ function ToDoList() {
             [updatedTasks[id + 1], updatedTasks[id]];
             setTasks(updatedTasks);
         }
+    }
+
+    function taskComplete(id) {
+        const updatedTasks = [...tasks];
+        updatedTasks[id].completed = !updatedTasks[id].completed;
+        setTasks(updatedTasks);
     }
 
     return (
@@ -65,6 +71,7 @@ function ToDoList() {
                             onDelete={deleteTask}
                             onMoveUp={moveTaskUp}
                             onMoveDown={moveTaskDown}
+                            onTaskComplete={() => taskComplete(index)}
                         />
                 )}
             </ol>
