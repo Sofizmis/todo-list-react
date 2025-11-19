@@ -1,9 +1,19 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import ToDoItem from './ToDoItem';
 
+const STORAGE_KEY = 'tasks';
+
 function ToDoList() {
-    const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState();
+    const [tasks, setTasks] = useState(() => {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }, [tasks]);
+
+    const [newTask, setNewTask] = useState("");
 
     function handleInputChange(event) {
         setNewTask(event.target.value);
