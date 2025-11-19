@@ -21,7 +21,11 @@ function ToDoList() {
 
     function addTask() {
         if (newTask.trim() !== "") {
-            setTasks(t => [...t, { text: newTask, completed: false }]);
+            setTasks(t => [...t, { 
+                text: newTask, 
+                completed: false,
+                createdAt: new Date().toLocaleString()
+             }]);
             setNewTask("");
         }
     }

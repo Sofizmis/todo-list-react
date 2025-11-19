@@ -15,6 +15,9 @@ function ToDoItem({ task, index, onDelete, onMoveUp, onMoveDown, onTaskComplete 
         >
           {index + 1}. {task.text}
         </label>
+        <div className="small text-muted">
+          Создано: {task.createdAt}
+        </div>
       </div>
 
       <div className="btn-group">
