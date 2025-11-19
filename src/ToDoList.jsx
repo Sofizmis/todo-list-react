@@ -55,6 +55,11 @@ function ToDoList() {
         setTasks(updatedTasks);
     }
 
+    function clearTasks() {
+        setTasks([]);
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
     return (
         <div className="container mt-5">
             <h1 className="text-center text-primary display-5 mb-4">To-Do Список</h1>
@@ -70,7 +75,11 @@ function ToDoList() {
                 <button className="btn btn-success btn-lg px-4" onClick={addTask}>
                     Добавить
                 </button>
-             </div>
+                <button className="btn btn-danger btn-lg px-4 ms-2" onClick={clearTasks}>
+                    Удалить всё
+                </button>
+            </div>
+
 
             <ol className="list-group">
                 {tasks.map((task, index) =>
