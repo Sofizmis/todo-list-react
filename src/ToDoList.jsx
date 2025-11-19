@@ -14,6 +14,8 @@ function ToDoList() {
     }, [tasks]);
 
     const [newTask, setNewTask] = useState("");
+    const activeTasks = tasks.filter(task => !task.completed);
+    const completedTasks = tasks.filter(task => task.completed);
 
     function handleInputChange(event) {
         setNewTask(event.target.value);
@@ -84,20 +86,39 @@ function ToDoList() {
                 </button>
             </div>
 
-
-            <ol className="list-group">
-                {tasks.map((task, index) =>
+            <h2 className="text-secondary">Активные задачи</h2>
+            <ol className="list-group mb-4">
+                {activeTasks.map((task, index) => (
                     <ToDoItem
-                            key={index}
-                            task={task}
-                            index={index}
-                            onDelete={deleteTask}
-                            onMoveUp={moveTaskUp}
-                            onMoveDown={moveTaskDown}
-                            onTaskComplete={() => taskComplete(index)}
-                        />
-                )}
+                        key={index}
+                        task={task}
+                        index={tasks.indexOf(task)}
+                        onDelete={deleteTask}
+                        onMoveUp={moveTaskUp}
+                        onMoveDown={moveTaskDown}
+                        onTaskComplete={() => taskComplete(tasks.indexOf(task))}
+                    />
+                ))}
             </ol>
+
+            {completedTasks.length > 0 && (
+                <>
+                    <h2 className="text-success">Выполненные задачи</h2>
+                    <ol className="list-group">
+                        {completedTasks.map((task, index) => (
+                            <ToDoItem
+                                key={index}
+                                task={task}
+                                index={tasks.indexOf(task)}
+                                onDelete={deleteTask}
+                                onMoveUp={moveTaskUp}
+                                onMoveDown={moveTaskDown}
+                                onTaskComplete={() => taskComplete(tasks.indexOf(task))}
+                            />
+                        ))}
+                    </ol>
+                </>
+            )}
         </div>
     )
 }
